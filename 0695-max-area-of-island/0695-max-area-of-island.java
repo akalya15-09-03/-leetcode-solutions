@@ -1,36 +1,38 @@
 class Solution {
 
-    public int dfs(int[][] grid, int row, int col) {
-
+    public int backtrack(int[][] grid, int row, int col) {
+        
         if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length || grid[row][col] == 0) {
             return 0;
         }
 
         grid[row][col] = 0;
 
-        int area = 1;
-
-        area += dfs(grid, row + 1, col);
-        area += dfs(grid, row - 1, col);
-        area += dfs(grid, row, col + 1);
-        area += dfs(grid, row, col - 1);
-
-        return area;
+        return 1 +
+        backtrack(grid, row + 1, col) +
+        backtrack(grid, row - 1, col) +
+        backtrack(grid, row, col + 1) +
+        backtrack(grid, row, col - 1);
     }
 
     public int maxAreaOfIsland(int[][] grid) {
-        int maxArea = 0;
+        if (grid.length == 0) {
+            return 0;
+        }
 
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
+        int row = grid.length;
+        int col = grid[0].length;
+        int Area = 0;
 
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
                 if (grid[i][j] == 1) {
-                    int area = dfs(grid, i, j);
-                    maxArea = Math.max(maxArea, area);
+                    int count = backtrack(grid, i, j);  
+                    Area = Math.max(Area, count);   
                 }
             }
         }
 
-        return maxArea;
+        return Area;
     }
 }
