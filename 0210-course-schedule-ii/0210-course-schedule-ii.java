@@ -1,5 +1,3 @@
-import java.util.*;
-
 class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
